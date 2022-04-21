@@ -1,3 +1,13 @@
+h1 {
+    text-align: center;
+}
 div {
+    text-align: center;
+}
+img {
+    width: 300px;
+    height: auto;
+}
+body {
     text-align: center;
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+
+       <!-- normalize.css CDN -->
+
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" integrity="sha512-oHDEc8Xed4hiW6CxD7qjbnI+B07vDdX7hEPTvn9pSZO1bcRqHp8mj9pyr+8RVC2GmtEfI2Bi9Ke9Ass0as+zpg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+       <!-- skeleton.css CDN -->
+   
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" integrity="sha512-5fsy+3xG8N/1PV5MIJz9ZsWpkltijBI48gBzQ/Z2eVATePGHOkMIn+xTDHIfTZFVb9GMpflF2wOWItqxAP2oLQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   
+       <link rel="stylesheet" href="/static/normalize.css"/>
+       <link rel="stylesheet" href="/static/skeleton.css"/>
+
+    <title>MoonSol Organics</title>
+</head>
+<body> <br>
+    <a href="/cafe/">Back to MoonSol Menu</a> <br><br><br>
+
+    <h2> <%= cafe.name %> </h2>
+
+    <img src="<%= cafe.img %> " alt=""> <br><br>
+
+    <p> <%= cafe.description %> </p>
+
+    <p> $<%= cafe.price %> </p>
+
+    <p> <%= cafe.qty %> in stock. </p>
+
+
+   
+
+</body>
+</html>

@@ -16,39 +16,25 @@
 
     <link rel="stylesheet" href="/static/normalize.css"/>
     <link rel="stylesheet" href="/static/skeleton.css"/>
+
+    <title>MoonSol Organics</title> 
+</head>
+
+<body><br>
+    <a href="/cafe/">Back to MoonSol Organics</a> <br><br>
+
+    <div class="container">
+        <h1>Add new item</h1>
+        <form action="/cafe" method="post">
+            <input type="text" name="name" placeholder="Name" /> <br>
+            <input type="url" name="image" placeholder="image" /> <br>
+            <input type="text" name="price" placeholder="Price"/> <br> 
+            <input type="text" name="qty" placeholder="Quantiy"/> <br>
     
-</head>
-
-    <title>MoonSol Organics</title>
-</head>
-<body> 
-    <br><br>
-    <h1>MoonSol Organics</h1> <br>
-
-    <!-- Add link to create new product  -->
-
-    <nav>
-        <a class="button" href="/cafe/new">new item</a> 
-    </nav><br>
-
-    <div>
-        <% for (let i = 0; i < cafe.length; i++) { %> 
-        
-            <h2> <%= cafe[i].name %> </h2>
-            
-            <a href="/cafe/<%= i %> "><img src="<%= cafe[i].img %>" alt=""></a> <br><br>
-
-            <h3> $<%= cafe[i].price %> </h3>
-            
-            <div class="buttons">
-                <form action="/cafe/<%=i%>?_method=DELETE" method="post">
-                <input type="submit" value="Delete">
-                </form> 
-                <a href="/cafe/<%= i %>/edit"><button>Edit</button></a><br>
-            </div><br>
-
-        <% } %>
-    </div>
+            <br/>
+            <input type="submit" value="Create new item">
+        </form>
+        </div>
     
 </body>
 </html>

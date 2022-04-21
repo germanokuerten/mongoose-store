@@ -16,39 +16,40 @@
 
     <link rel="stylesheet" href="/static/normalize.css"/>
     <link rel="stylesheet" href="/static/skeleton.css"/>
-    
-</head>
 
     <title>MoonSol Organics</title>
 </head>
-<body> 
-    <br><br>
-    <h1>MoonSol Organics</h1> <br>
 
-    <!-- Add link to create new product  -->
+<body>
+    <br>
+    <a href="/cafe/">Back to MoonSol Organics</a> <br><br>
 
-    <nav>
-        <a class="button" href="/cafe/new">new item</a> 
-    </nav><br>
+    <h1>Edit Coffee page</h1>
 
-    <div>
-        <% for (let i = 0; i < cafe.length; i++) { %> 
-        
-            <h2> <%= cafe[i].name %> </h2>
-            
-            <a href="/cafe/<%= i %> "><img src="<%= cafe[i].img %>" alt=""></a> <br><br>
+    <form action="/cafe/<%= index %>?_method=PUT" method="post"> <br>
 
-            <h3> $<%= cafe[i].price %> </h3>
-            
-            <div class="buttons">
-                <form action="/cafe/<%=i%>?_method=DELETE" method="post">
-                <input type="submit" value="Delete">
-                </form> 
-                <a href="/cafe/<%= i %>/edit"><button>Edit</button></a><br>
-            </div><br>
+    <!-- Coffee Name -->
 
-        <% } %>
-    </div>
+    <!-- <h2> <%= cafe.name %> </h2> -->
+
+    <input type="text" name="name" value="<%= cafe.name %>" /> <br><br>
+
+     <!-- Coffee Image -->
+
+     <img src="<%= cafe.img %> " alt=""> <br><br>
+     <p>Image:&nbsp<input type="text" name="img" value="<%= cafe.img %>"/></p> 
+
+    <!-- Main Stats -->
+
+    <p>description:&nbsp<input type="text" name="[description]" value="<%= cafe.description %>"/></p> 
+
+    <p>price:&nbsp<input type="text" name="[price]" value="<%= cafe.price %>"/></p>
     
+    <p>stock:&nbsp<input type="text" name="[qty]" value="<%= cafe.qty %>"/></p>
+
+
+        <input type="submit" value="Update <%= cafe.name %>">
+    </form>
+
 </body>
 </html>

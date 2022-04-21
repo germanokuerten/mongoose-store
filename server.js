@@ -13,12 +13,27 @@ const app = express()
 
 const PORT = process.env.PORT
 
+const coffee = require("./models/coffee.js")
+
+const morgan = require("morgan")
+const methodOverride = require("method-override")
+
 ////////////////
 // Middleware
 ////////////////
 
+// Body Parser
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+
+// Morgan
+app.use(morgan("tiny"))
+
 // Static (public folder)
 app.use("/static", express.static("public"))
+
+// MethodOverride Dep
+app.use(methodOverride("_method")) 
 
 ////////////////
 // Routes
@@ -33,7 +48,7 @@ app.get("/", (req, res) => {
 // Index - GET
 
 app.get("/store", (req, res) => {
-    res.send("index.ejs")
+    res.render("index.ejs", {cafe: coffee})
 })
 
 // New
@@ -52,6 +67,6 @@ app.get("/store", (req, res) => {
 // Listener
 ////////////////
 
-app.listen(PORT, (req, res) => {
+app.listen(PORT, () => {
     console.log(`You are listening on port ${PORT}`)
 })

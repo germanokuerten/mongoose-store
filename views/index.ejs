@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+
+    <title>MoonSol Organics</title>
+</head>
+<body>
+    <style>
+        h1 {
+            text-align: center;
+        }
+        div {
+            text-align: center;
+        }
+        img {
+            width: 300px;
+            height: auto;
+        }
+    </style>
+    <h1>MoonSol Organics INDEX</h1>
+
+    <div>
+        <% for (let i = 0; i < cafe.length; i++) { %> 
+        
+            <h2> <%= cafe[i].name %> </h2>
+            
+            <a href="/store/<%= i %> "><img src="<%= cafe[i].img %>" alt=""></a> <br><br>
+    
+            <div class="buttons">
+            <form action="/coffee/<%=i%>?_method=DELETE" method="post">
+                <input type="submit" value="Delete">
+            </form> 
+            <a href="/coffee/<%= i %>/edit"><button>Edit</button></a><br>
+            </div>
+                
+            
+        <% } %>
+    </div>
+    
+</body>
+</html>

@@ -22,70 +22,37 @@
 
     <form action="/drink/<%= drink.id %>?_method=PUT" method="POST">
     
-    <!-- <h1><%= drink.drinkName %> </h1> -->
+    <!-- <h1><%= drink.name %> </h1> -->
 
     <!-- Drink Name -->
 
-    <p>name:&nbsp<input type="text" name="drinkName" value="<%= drink.drinkName %>"/></p>
+    <p>name:&nbsp<input type="text" name="name" value="<%= drink.name %>"/></p>
 
-    <!-- Drink Id -->
+    <!-- Drink Description -->
 
-    <p>drink id:&nbsp<input type="text" name="idDrink" value="<%= drink.idDrink %>"/></p> 
-
-    <!-- Alcoholic? -->
-
-    <p>alcoholic:&nbsp<input type="text" name="alcoholic" value="<%= drink.alcoholic %>"/></p><br>
+    <p>description:&nbsp<input type="text" name="description" value="<%= drink.description %>"/></p> 
 
     <!-- Drink Image -->
 
-    <img src="<%= drink.drinkImage %> " alt="Drink Image">
+    <img src="<%= drink.img %> " alt="Drink Image">
 
-    <p>image:&nbsp<input type="url" name="drinkImage" value="<%= drink.drinkImage %>"/></p><br>
+    <p>image:&nbsp<input type="url" name="img" value="<%= drink.img %>"/></p>
 
-    <!-- Drink Ingredients -->
+    <!-- Drink Price -->
 
-    <h4>Ingredients:</h4>
+    <p>price:&nbsp<input type="text" name="price" value="<%= drink.price %>"/></p>
 
-    <p>ingredient1:&nbsp<input type="text" name="ingredient1" value="<%= drink.ingredient1 %>"/></p>
+    <!-- Quantity -->
 
-    <p>ingredient2:&nbsp<input type="text" name="ingredient2" value="<%= drink.ingredient2 %>"/></p>
+    <p>qty:&nbsp<input type="text" name="qty" value="<%= drink.qty %>"/></p>
 
-    <p>ingredient3:&nbsp<input type="text" name="ingredient3" value="<%= drink.ingredient3 %>"/></p>
-
-    <p>ingredient4:&nbsp<input type="text" name="ingredient4" value="<%= drink.ingredient4 %>"/></p>
-
-    <p>ingredient5:&nbsp<input type="text" name="ingredient5" value="<%= drink.ingredient5 %>"/></p>
-
-    <p>ingredient6:&nbsp<input type="text" name="ingredient6" value="<%= drink.ingredient6 %>"/></p>
-
-    <p>ingredient7:&nbsp<input type="text" name="ingredient7" value="<%= drink.ingredient7 %>"/></p>
-
-    <p>ingredient8:&nbsp<input type="text" name="ingredient8" value="<%= drink.ingredient8 %>"/></p>
-
-    <p>ingredient9:&nbsp<input type="text" name="ingredient9" value="<%= drink.ingredient9 %>"/></p>
-
-    <p>ingredient10:&nbsp<input type="text" name="ingredient10" value="<%= drink.ingredient10 %>"/></p>
-
-    <!-- Drink Instructions -->
-
-    <h4>Instructions: </h4>
-
-    <p>instructions:&nbsp<input id="textboxid" type="text" name="instructions" value="<%= drink.instructions %>"/></p>
-
-    <!-- Drink History -->
-
-    <h4>Drink History: </h4>
-
-    <p>drink history:&nbsp<input id="textboxid" type="text" name="drinkHistory" value="<%= drink.drinkHistory %>"/></p>
-
-    <br><br>
-    <input type="submit" value="Update <%= drink.drinkName %>">
+    <br>
+    <input type="submit" value="Update <%= drink.name %>">
     
     </form>
 
     <hr>
-    <p class="footer">ondarox.co | cocktail recipe app</p>  
-    <!-- alt. On Da Rox - Cocktail Recipe App 2022 -->
+    <p class="footer">MoonSol Organics</p>  
     
 </body>
 </html>

@@ -1,39 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
 
-       <!-- normalize.css CDN -->
+    <%- include("partials/head.ejs") %>
 
-       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" integrity="sha512-oHDEc8Xed4hiW6CxD7qjbnI+B07vDdX7hEPTvn9pSZO1bcRqHp8mj9pyr+8RVC2GmtEfI2Bi9Ke9Ass0as+zpg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Show Body -->
+
+<body>
+
+    <a href="/drink/" style="text-decoration: none"><h1 class="welcome2">MoonSol Organics</h1></a><br>
+
+    <nav>
+        <a href="/drink/new" style="text-decoration: none"><button id="newitem">New Item</button></a> 
+    </nav><hr>
+
+    <!-- Drink Data -->
     
-       <!-- skeleton.css CDN -->
-   
-       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" integrity="sha512-5fsy+3xG8N/1PV5MIJz9ZsWpkltijBI48gBzQ/Z2eVATePGHOkMIn+xTDHIfTZFVb9GMpflF2wOWItqxAP2oLQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-   
-       <link rel="stylesheet" href="/static/normalize.css"/>
-       <link rel="stylesheet" href="/static/skeleton.css"/>
+    <h1><%= drink.name %></h1>
+    <p>$<%= drink.price %></p>
 
-    <title>MoonSol Organics</title>
-</head>
-<body> <br>
-    <a href="/cafe/">Back to MoonSol Menu</a> <br><br><br>
+    <img src="<%= drink.img %> " alt="Drink Image">
 
-    <h2> <%= cafe.name %> </h2>
+    <div id="ingredients-show">
+        <p class="ingredients-show"><%= drink.ingredient1 %></p>
+        <p class="ingredients-show"><%= drink.ingredient2 %></p>
+        <p class="ingredients-show"><%= drink.ingredient3 %></p>
+        <p class="ingredients-show"><%= drink.ingredient4 %></p>
+        <p class="ingredients-show"><%= drink.ingredient5 %></p>
+        <p class="ingredients-show"><%= drink.ingredient6 %></p>
+        <p class="ingredients-show"><%= drink.ingredient7 %></p>
+        <p class="ingredients-show"><%= drink.ingredient8 %></p>
+        <p class="ingredients-show"><%= drink.ingredient9 %></p>
+        <p class="ingredients-show"><%= drink.ingredient10 %></p>
+    </div>
 
-    <img src="<%= cafe.img %> " alt=""> <br><br>
+    <div class="instructions">
+    <p><%= drink.description %></p>
+    </div>
 
-    <p> <%= cafe.description %> </p>
+    <div class="drink-history">
+    <p><%= drink.drinkHistory %></p>
+    </div>  
+    <p>Stock:&nbsp<%= drink.qty %></p>
 
-    <p> $<%= cafe.price %> </p>
+    <a href="/drink/<%= drink.id %>/edit"><button>Edit</button></a><br>
 
-    <p> <%= cafe.qty %> in stock. </p>
-
-
-   
+    <hr>
+    <p class="footer">MoonSol Organics</p>
 
 </body>
 </html>

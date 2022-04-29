@@ -1,54 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
 
-    <!-- normalize.css CDN -->
+    <%- include("partials/head.ejs") %>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" integrity="sha512-oHDEc8Xed4hiW6CxD7qjbnI+B07vDdX7hEPTvn9pSZO1bcRqHp8mj9pyr+8RVC2GmtEfI2Bi9Ke9Ass0as+zpg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <!-- skeleton.css CDN -->
+<!-- Index Body -->
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" integrity="sha512-5fsy+3xG8N/1PV5MIJz9ZsWpkltijBI48gBzQ/Z2eVATePGHOkMIn+xTDHIfTZFVb9GMpflF2wOWItqxAP2oLQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<body>
 
-    <link rel="stylesheet" href="/static/normalize.css"/>
-    <link rel="stylesheet" href="/static/skeleton.css"/>
-    
-</head>
+    <style>
+        h1 {
+            font-size: 45px;
+        }
+        h4 {
+            margin: 0 -10px 10px;
+        }
+    </style>
 
-    <title>MoonSol Organics</title>
-</head>
-<body> 
-    <br><br>
-    <h1>MoonSol Organics</h1> <br>
-
-    <!-- Add link to create new product  -->
+    <h1 class="welcome2">MoonSol Organics</h1><br>
 
     <nav>
-        <a class="button" href="/cafe/new">new item</a> 
-    </nav><br>
-
-    <div>
-        <% for (let i = 0; i < cafe.length; i++) { %> 
+        <a href="/drink/new" style="text-decoration: none"><button id="newitem">New Item</button></a> 
+    </nav><hr><br>
+    
+    
+    <div class="drink-container">
         
-            <h2> <%= cafe[i].name %> </h2>
-            
-            <a href="/cafe/<%= i %> "><img src="<%= cafe[i].img %>" alt=""></a> <br><br>
+        <%  for (let i = 0; i < drink.length; i++) { %> 
+   
+        <div class="card">
+            <h4><%= drink[i].name %><h4> <h6>$<%= drink[i].price %></h6>
 
-            <h3> $<%= cafe[i].price %> </h3>
+            <a href="/drink/<%= drink[i].id %> "><img src="<%= drink[i].img %>" alt=""></a><br>
             
             <div class="buttons">
-                <form action="/cafe/<%=i%>?_method=DELETE" method="post">
-                <input type="submit" value="Delete">
-                </form> 
-                <a href="/cafe/<%= i %>/edit"><button>Edit</button></a><br>
-            </div><br>
 
-        <% } %>
+            <!-- Edit Link Button -->
+
+            <a href="/drink/<%= drink[i].id %>/edit"><button id="edit">Edit</button></a><br>
+
+            </div>
+            <br>
+        </div>
+
+        <% } %> 
+    
     </div>
+    <hr>
+    <p class="footer">MoonSol Organics</p>
     
 </body>
 </html>

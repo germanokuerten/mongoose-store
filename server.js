@@ -6,114 +6,180 @@
 // Dependencies
 ////////////////
 
+// .env
 require("dotenv").config()
 
+// Web framework
 const express = require("express")
-const app = express()
 
-const PORT = process.env.PORT
+// Object Document Manager (Work with DB)
+const mongoose = require("mongoose")
 
-const coffee = require("./models/coffee.js")
-
-const morgan = require("morgan")
+// Override request methods (Post - Put / Post - Delete)
 const methodOverride = require("method-override")
 
-////////////////
+// Used for logging
+const morgan = require("morgan")
+
+
+//////////////////////////////
+// Setup Database Connection
+//////////////////////////////
+
+// loading db url
+const DATABASE_URL = process.env.DATABASE_URL
+
+// Establish connection
+mongoose.connect(DATABASE_URL)
+
+// Save the connection
+const cnx = mongoose.connection
+
+// Setup mongoose connection messages
+cnx
+.on("open", () => console.log("Mongo Connection is Open"))
+.on("close", () => console.log("Mongo Connection is Closed"))
+.on("error", (err) => console.log(err))
+
+
+//////////////////////////////
+// Schemas and Models
+//////////////////////////////
+
+// Schema - the definition of our data type
+// Model - the object working with our data type
+
+const drinkSchema = new mongoose.Schema({
+    name: String,
+    description: String,
+    img: String,
+    drinkImage: String,
+    price: String,
+    qty: String,
+}, {timestamps: true})
+
+const Drink = mongoose.model("Drink", drinkSchema)
+
+//////////////////////////////
+// Express Application
+//////////////////////////////
+
+const app = express()
+
+
+//////////////////////////////
 // Middleware
-////////////////
+//////////////////////////////
 
-// Body Parser
-app.use(express.urlencoded({ extended: true }))
+// override request methods for form submissions
+app.use(methodOverride("_method"))
+// log every request
+app.use(morgan("dev"))
+// Parse html form bodies into req.body
+app.use(express.urlencoded({extended: true}))
 app.use(express.json())
+// serve files statically
+app.use("/static", express.static("static"))
 
-// Morgan
-app.use(morgan("tiny"))
 
-// Static (public folder)
-app.use(express.static("public"))
-
-// MethodOverride Dep
-app.use(methodOverride("_method")) 
-
-////////////////
+//////////////////////////////
 // Routes
-////////////////
+//////////////////////////////
 
 // INDUCES - Index, New, Delete, Update, Create, Edit, Show
 
+// Home Route
 app.get("/", (req, res) => {
-    res.send("You are Home!")
+    res.render("home.ejs")
 })
 
-// Index - GET
-
-app.get("/cafe", (req, res) => {
-    res.render("index.ejs", {cafe: coffee})
+// Index Route
+app.get("/drink", async (req, res) => {
+    // go get Drinks
+    const drinks = await Drink.find({})
+    // render index.ejs
+    res.render("index.ejs", {drink: drinks})
 })
 
-
-// New
-
-app.get("/cafe/new", (req, res) => {
-    res.render("new.ejs"), {
-    }
+// Seed Route
+app.get("/drink/seed", async (req, res) => {
+    // delete all existing drinks
+    await Drink.remove({}).catch((err) => res.send(err))
+    // add sample drinks
+    const drinks = await Drink.create([
+        {
+          name: "Latte",
+          description:
+            "Organic espresso coffee with our homemade organic oat milk.",
+          img: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          price: 4,
+          qty: 99,
+        },
+        {
+          name: "Cappuccino",
+          description: "Organic espresso coffee with homemade organic oat milk.",
+          img: "https://images.unsplash.com/photo-1534778101976-62847782c213?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2FwcHVjY2lub3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=700&q=60",
+          price: 5,
+          qty: 0,
+        },
+        {
+          name: "Hot Cacau with a splash of coffee",
+          description: "Organic Mayan Cacau from Yucatan, organic Peruvian Maca, and organic homemade oat milk with a splash of our organic single sourced coffee from South Brazil.",
+          img: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y2FwcHVjY2lub3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=700&q=60",
+          price: 6,
+          qty: 1,
+        },
+      ]).catch((err) => res.send(err))
+    // send the drinks as json
+    res.json(drinks)
 })
 
-app.post("/cafe", (req, res) => {
-    req.body = req.body
-    coffee.push(req.body)
-    res.redirect("/cafe")
+// New Route
+app.get("/drink/new", (req, res) => {
+    res.render("new.ejs")
 })
 
-// Delete
-
-app.delete("/cafe/:id", (req, res) => {
-    // grab the index from params
+// Delete Route
+app.delete("/drink/:id", async (req, res) => {
     const index = req.params.id
-    // splice the fruit from fruits
-    coffee.splice(index, 1)
-    // redirect back to main page
-    res.redirect('/cafe')
-  })
+    await Drink.findByIdAndDelete(index).catch((err) => console.log(err))
+    res.redirect("/drink")
+})
 
-// Update
+// Update Route
+app.put("/drink/:id", async (req, res) => {
+    const updatedDrink = await Drink.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    res.redirect("/drink")
+})
 
-app.get("/cafe/:id/edit", (req, res) => {
+// Create
+app.post("/drink", async (req, res) => {
+    await Drink.create(req.body).catch((err) => res.send(err))
+    res.redirect("/drink/")
+})
+
+// Edit
+app.get("/drink/:id/edit", async (req, res) => {
+    const editedDrink = await Drink.findById(req.params.id).catch((err) => res.send(err))
     res.render("edit.ejs", {
-        cafe: coffee[req.params.id],
+        drink: editedDrink,
         index: req.params.id
     })
 })
 
-
-// Create 
-
-// Edit
-
-app.put("/cafe/:id", (req, res) => {
-    // convert readyToEat to a Boolean
-    // if (req.body.readyToEat === "on"){
-    //   req.body.readyToEat = true
-    // } else {
-    //   req.body.readyToEat = false
-    // }
-    const newCafe = {...coffee[req.params.id]}
-    Object.assign(newCafe, req.body)
-    
-    coffee[req.params.id] = newCafe
-    
-    res.redirect("/cafe")
-  })
-
-// Show
-
-app.get("/cafe/:id", (req, res) => {
-    res.render("show.ejs", {cafe: coffee[req.params.id]})
+// Show Route
+app.get("/drink/:id", async (req, res) => {
+    const showDrink = await Drink.findById(req.params.id).catch((err) => res.send(err))
+    res.render("show.ejs", {drink: showDrink})
 })
+
 
 ////////////////
 // Listener
 ////////////////
+
+// Config
+const PORT = process.env.PORT
 
 app.listen(PORT, () => {
     console.log(`You are listening on port ${PORT}`)
